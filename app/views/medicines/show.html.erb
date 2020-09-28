@@ -1,0 +1,57 @@
+<div class ="row" >
+  <div class ="col-xl-5 col-md-6 col-sm-12 ">
+	<%= image_tag @medicine.photo.url(:show), class: "img-fluid"%>
+  </div>
+  <br>
+  <div class ="col-xl-6 col-md-5 col-sm-12" style="display: flex;
+  flex-direction: column;">
+	<div align="center" class="h2"><%= @medicine.name %>
+	</div>
+	<br>
+	<div align="center" class="h5">
+	  Производитель: <%=@medicine.brand %>
+	</div>
+	<br>
+	<% if user_signed_in? %>  
+		<div align="left" class="h5">
+			Поставщик: <%=Supplier.find(@medicine.suppliers_id).name %>
+		</div>
+		<div align="left" class="h5">
+			Номер поставки: <%=@medicine.supply_number %>
+		</div>
+		<% if Recipe.exists?(@medicine.id)%>
+			<div align="left" class="h5 text-danger">
+  	  			Необходим рецепт по причине: <%=Recipe.find(@medicine.id).reason%>
+			</div>
+		 <%end%>
+	<% end %>
+  	<div align="left" class="h5">
+  	  Цена: 
+	</div>
+	<% if @medicine.amount > 0 %>
+	  <div align= "left" class=" h4 text-success">
+	    <%= @medicine.price %> руб.
+	  </div>
+  <div align="left" class="h3">
+      <span class="badge badge-pill badge-primary">Есть в наличии:
+	  <span class="badge badge-pill badge-light"><%= @medicine.amount %></span>
+		  </span>
+	  </div>
+	  <% if user_signed_in? %>  
+	  <%= form_for @purchase_medicine do |f| %>
+            <%= f.hidden_field :medicine_id, value: @medicine.id %>
+            <div class="row my-3" align="left">
+              <div class="col-5 pl=10" align="left">
+                <%= f.number_field :amount, class: "form-control", max: @medicine.amount, min: "1", value: "1" %>
+              </div>
+              <div class="col-7" align="left">
+                <%= f.submit "Добавить в заказ", class: "btn btn-success btn-xl" %>
+              </div>
+            </div>
+          <% end %>
+         <% end %> 
+	</div>
+		<% else %>
+		  <span class="badge badge-danger">Нет в наличии <span class="badge badge-light"></span></span>
+		<% end %>
+</div>

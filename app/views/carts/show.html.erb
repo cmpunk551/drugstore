@@ -1,0 +1,61 @@
+<% if @purchase_medicines.any? %>
+  <table id="cart" class="table table-hover table-responsive table-sm">
+    <thead>
+	  <tr>
+		<th style="width:52%">Наименование</th>
+		<th style="width:10%">Цена</th>
+		<th style="width:8%">Количество</th>
+		<th style="width:22%" class="text-center">Итого</th>
+		<th style="width:8%" class="text-center">Обновление</th>
+	  </tr>
+	</thead>
+	  <tbody>
+	  	<% @purchase_medicines.each do |item| %>
+	  	<a href="/products/<%= Medicine.find(item.medicine_id).id %>" class="without-decoration">
+	    <tr>
+			<a href="/products/<%= Medicine.find(item.medicine_id).id %>" class="without-decoration">
+		  <td data-th="Препарат">
+		  	<div class="row">
+		  	  <div class="col-sm-3 hidden-xs">
+			  	<%= image_tag Medicine.find(item.medicine_id).photo.url(:show), class: "img-responsive", width: "100px", height: "100px" %> 
+			  </div>
+			  <div class="col-sm-9">
+			    <h4 class="nopadding"><%= Medicine.find(item.medicine_id).name %></h4>
+			    <p><%= Medicine.find(item.medicine_id).brand %></p>
+		      </div>
+			</div>
+		  </td>
+		  <td data-th="Price"><%= Medicine.find(item.medicine_id).price %> руб.</td>
+		  <td data-th="Amount">
+		  	<%= form_for 'item', :html => {:id=>'form_id'}, :url => {:controller => 'purchase_medicines', :action => 'update', id: item}, method: 'put' do |f| %>
+		  	  <%= f.number_field :amount, class: "form-control", max: Medicine.find(item.medicine_id).amount, min: "1", value: item.amount %>
+		  	  <%= f.hidden_field :medicine_id, value: item.medicine_id %>
+		  </td>
+		  <td data-th="Subtotal" class="text-center"><%= (Medicine.find(item.medicine_id).price * item.amount) %> руб.</td>
+		  <td class="actions text-center" data-th="">
+		  	<%= link_to '', "", :onclick => "$('#form_id').submit()", class: "btn-lg fas fa-sync-alt"%>
+			<% end %>
+			<%= link_to "", purchase_medicine_path(item), :data => {:confirm => "Вы уверены?", :method => "delete"}, class: "btn-lg far fa-trash-alt" %>
+		  </td>
+
+		</tr>
+		</a>
+		<% end %>
+	  </tbody>
+	  <tfoot>
+	    <tr>
+		  <td><a href="/" class="btn btn-warning"><i class="fa fa-angle-left"></i> Вернуться к каталогу</a></td>
+		  <td colspan="2" class="hidden-xs"></td>
+		  <td class="hidden-xs text-center"><strong>Всего: <%= current_purchase.total_cost %></strong></td>
+		  <td>
+			<%= link_to purchase_confirm_index_path , :class => "btn btn-success btn-block" do %>
+		  	<!-- <a href="/deliverycity" class="">Оформить заказ <i class="fa fa-angle-right"></i></a> -->
+		  		Оформить покупку
+		  	<% end %>
+		  	</td>
+		</tr>
+	  </tfoot>
+	</table>
+  <% else %>
+    <p>Ваша покупка не содержит товаров</p>
+<% end %>

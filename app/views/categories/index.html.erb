@@ -1,0 +1,12 @@
+<div>
+	<ul class="list-group">
+		<h3 class="list-group-item-heading textcolor-light text-center">Категории</h3>
+		<br>
+		<% @all_categories.each do |category| %>
+		<br>
+			<%= link_to medicines_path(:category_id => category.id), :class => "list-group-item active" do %>
+      			<%= category.name %>
+      		<% end %>
+      	<% end %>
+	</ul>
+</div>

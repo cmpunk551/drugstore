@@ -1,0 +1,57 @@
+<div class="container">
+<h2 class="custom-header">Редактировать профиль </h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+<br>
+  <div class="field">
+    <%= f.label :email, class: "font-weight-bold" %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", :value => @user.email ,class: "form-control" %>
+  </div>
+  <br>
+
+  <div class="field">
+    <%= f.label :ФИО, class: "font-weight-bold" %><br />
+    <%= f.text_field :fio, autocomplete: "fio", class: "form-control", :value => @user.fio %>
+  </div>
+  <br>
+
+   <div class="field">
+    <%= f.label :Адрес, class: "font-weight-bold" %><br />
+    <%= f.text_field :address, autocomplete: "address", class: "form-control", :value => @user.address %>
+  </div> 
+  <br>
+
+  <div class="field">
+    <%= f.label :Телефон, class: "font-weight-bold" %><br />
+    <%= f.text_field :telephone, autocomplete: "telephone", class: "form-control", :value => @user.telephone %>
+  </div>
+  <br>
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :Новый_пароль, class: "font-weight-bold" %><br />
+    <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+    <% if @minimum_password_length %>
+      <em> <%= @minimum_password_length %> или больше</em>
+    <% end %>
+  </div>
+  <br>
+
+  <div class="field">
+    <%= f.label :Подтверждение_пароля, class: "font-weight-bold" %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+  </div>
+  <br>
+
+
+  <div class="actions">
+    <%= f.submit "Сохранить", class: "btn btn-raised btn-primary" %>
+  </div>
+<% end %>
+<br>
+
+</div>

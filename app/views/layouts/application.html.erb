@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DrugsStore</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+          <div class="bmd-layout-container bmd-drawer-f-l bmd-drawer-overlay">
+            <header class="bmd-layout-header">
+              <div class="navbar navbar-light bg-primary">
+                <button class="navbar-toggler" type="button" data-toggle="drawer" data-target="#dw-p3">
+                 <span class="sr-only">Toggle drawer</span>
+                 <i class="material-icons">menu</i>
+                </button>
+                <ul class="nav navbar-nav">
+                  <%= form_tag(medicines_path, method: 'get', id: 'search-form', :class => "form-inline mx-3") do %>
+                    <%= text_field_tag :search, params[:search], :class => "form-control", placeholder: 'Поиск препарата'%>
+                    <%= submit_tag 'Поиск', :class => "btn btn-danger btn-raised my-2 mx-3 my-sm-0", name: nil %>
+                  <% end %>
+                </ul>
+              </div>
+            </header>
+            <div id="dw-p3" class="bmd-layout-drawer bg-primary">
+              <ul class="list-group">
+                <br>
+                <a href="/", class="list-group-item badge badge-danger mx-1">Категории</a>
+                <br>
+                <%=link_to medicines_path, :class => "list-group-item badge badge-danger mx-1" do%>
+                  Полный каталог
+                <%end%>
+                <br>
+                <% unless user_signed_in? %> 
+                <%=link_to user_session_path, :class => "list-group-item badge badge-danger mx-1" do%>
+                  Авторизация
+                <%end%>
+                <br>
+                <%end%>
+                <% if user_signed_in? %>  
+                  <%=link_to new_medicine_path, :class => "list-group-item badge badge-danger mx-1" do%>
+                  Добавить препарат
+                <%end%>
+                <br>
+                  <%=link_to purchases_path, :class => "list-group-item badge badge-danger mx-1" do%>
+                  Все совершённые покупки
+                <%end%>
+                <br>
+                <%end%>
+                <% if user_signed_in? %>  
+                  <%=link_to cart_path, :class => "list-group-item badge badge-danger mx-1" do%>
+                  Текущая покупка
+                <%end%>
+                <br>
+                <%=link_to edit_user_registration_path, :class => "list-group-item badge badge-danger mx-1" do%>Редактировать информацию
+                  <%end%>
+                  <br>
+                  <%=link_to destroy_user_session_path, :class => "list-group-item badge badge-danger mx-1" do%>Выйти
+                  <%end%>
+
+                <%end%>
+                <br>
+              </ul>
+            </div>
+            <main class="bmd-layout-content">
+              <div class="container">
+                <div class="container-full col-xl-12 col-md-12">
+                  <br>
+                  <%= yield %>
+                </div>
+              </div>
+            </main>
+          </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+  </body>
+</html>

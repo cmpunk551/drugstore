@@ -1,0 +1,64 @@
+<div class="container">
+<h2>Добавить препарат</h2>
+	<%= form_for @medicine, :html => {:multipart => true} do |f| %>
+  		<br>
+  		<div class="form-group">
+    		<%= f.label :Наименование, class: "bmd-label-floating" %>
+    		<%= f.text_field :name, autocomplete: "name", class: "form-control", :required => true %>
+        <span class="bmd-help"></span>
+  		</div>
+  		<br>
+
+  		<div class="field">
+			<%= f.label :Категория_препарата %><br />
+			<%= select_tag(:category_id, options_for_select(@categories), :prompt => "Выберите категорию препарата", :required => true) %>
+		</div>
+		<br>
+
+		<div class="form-group">
+    		<%= f.label :Производитель, class: "bmd-label-floating" %>
+    		<%= f.text_field :brand, autocomplete: "brand", class: "form-control", :required => true %>
+        <span class="bmd-help"></span>
+  		</div>
+  		<br>
+
+		<div class="form-group">
+    		<%= f.label :Номер_поставки, class: "bmd-label-floating" %>
+    		<%= f.number_field :supply_number, autocomplete: "supply_number", class: "form-control", :required => true %>
+        <span class="bmd-help"></span>
+  		</div>
+  		<br>
+
+  		<div class="field">
+			<%= f.label :Выберите_поставщика_препарата %><br />
+			<%= select_tag(:suppliers_id, options_for_select(@suppliers), :prompt => "Выберите поставщика препарата") %>
+		</div>
+		<br>
+
+		<div class="form-group">
+    		<%= f.label :Цена, class: "bmd-label-floating" %>
+    		<%= f.number_field :price, :min => 0, autocomplete: "price", class: "form-control", :required => true %>
+        <span class="bmd-help"></span>
+  		</div>
+  		<br>  		
+
+		<div class="form-group">
+    		<%= f.label :Количество, class: "bmd-label-floating" %>
+    		<%= f.number_field :amount,:min => 0, autocomplete: "amount", class: "form-control", :required => true %>
+        <span class="bmd-help"></span>
+  		</div>
+  		<br>
+
+    <div class="field">
+      <%= f.label :Изображение_препарата %><br />
+      <%= f.file_field :photo %>
+    </div>
+      <br>
+
+  		<div class="actions">
+   	    	 <%= f.submit "Добавить товар", class: "btn btn-success" %>
+ 		</div>
+  		<br>
+  	<% end %>
+
+</div>

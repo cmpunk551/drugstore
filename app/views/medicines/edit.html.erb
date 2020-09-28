@@ -1,0 +1,59 @@
+<div class="container">
+<h2>Изменить препарат</h2>
+	<%= form_for @medicine, :html => {:multipart => true} do |f| %>
+  		<br>
+  		<div class="field">
+    		<%= f.label :Наименование %><br />
+    		<%= f.text_field :name, autocomplete: "name", class: "form-control", :required => true %>
+  		</div>
+  		<br>
+
+  		<div class="field">
+			<%= f.label :Выберите_категорию_препарата %><br />
+			<%= select_tag(:category_id, options_for_select(@categories), :required => true, :value => Category.find(@medicine.category_id).name) %>
+		</div>
+		<br>
+
+		<div class="field">
+			<%= f.label :Изображение_товара %><br />
+			<%= f.file_field :photo %>
+  		</div>
+  		<br>
+
+		<div class="field">
+    		<%= f.label :Производитель %><br />
+    		<%= f.text_field :brand, autocomplete: "brand", class: "form-control", :required => true, :value => @medicine.brand %>
+  		</div>
+  		<br>
+
+		<div class="field">
+    		<%= f.label :Номер_поставки %><br />
+    		<%= f.number_field :supply_number, autocomplete: "supply_number", class: "form-control", :required => true %>
+  		</div>
+  		<br>
+
+  		<div class="field">
+			<%= f.label :Выберите_поставщика_препарата %><br />
+			<%= select_tag(:suppliers_id, options_for_select(@suppliers), :value => Supplier.find(@medicine.suppliers_id).name) %>
+		</div>
+		<br>
+
+		<div class="field">
+    		<%= f.label :Цена %><br />
+    		<%= f.number_field :price, :min => 0, autocomplete: "price", class: "form-control", :required => true, :value => @medicine.price %>
+  		</div>
+  		<br>  		
+
+		<div class="field">
+    		<%= f.label :Количество %><br />
+    		<%= f.number_field :amount, :min => 0, autocomplete: "amount", class: "form-control", :required => true, :value => @medicine.amount %>
+  		</div>
+  		<br>
+
+  		<div class="actions">
+   	    	 <%= f.submit "Сохранить", class: "btn btn-success" %>
+ 		</div>
+  		<br>
+  	<% end %>
+
+</div>

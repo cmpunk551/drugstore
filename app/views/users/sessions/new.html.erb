@@ -1,0 +1,27 @@
+<div class="container">
+<h2><mark>Вход в систему для персонала</mark></h2>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="form-group">
+      <%= f.label :email, class: "bmd-label-floating" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", id: "exampleFormControlInput1" %>
+      <span class="bmd-help"></span>
+    </div>
+    <div class="form-group">
+      <%= f.label :Пароль, class: "bmd-label-floating" %>
+      <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+      <span class="bmd-help"></span>
+    </div>
+    <% if devise_mapping.rememberable? -%>
+      <div class="field">
+        <%= f.check_box :remember_me %>
+        <%= f.label :Запомнить %>
+      </div>
+    <% end %>
+    <br>
+    <div class="actions",>
+      <%= f.submit "Войти", class:"btn btn-primary btn-raised"%>
+    </div>
+  <% end %>
+
+<%= render "users/shared/links" %>
+</div>

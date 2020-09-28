@@ -1,0 +1,2 @@
+module PurchaseConfirmHelper
+end
