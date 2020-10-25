@@ -6,4 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Recipe.create(medicine_id: 1, reason: "наркотический эффект")
+Category.create(name:"Аллергия")
+Category.create(name:"Диабет")
+Category.create(name:"Иммунопрепараты")
+Category.create(name:"Пищеварительная система")
